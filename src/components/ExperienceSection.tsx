@@ -15,7 +15,7 @@ export default function ExperienceSection() {
 
   return (
     <section className="section" id="experience">
-      <SectionHeading eyebrow="Professional journey" title="Experience & Education" description="A timeline of the work, learning, and experiments that shaped how I build." />
+      <SectionHeading eyebrow="Experience" title="Professional Journey" description="Experiences that defined my professional growth and skills." />
       <div className="tabSwitch" role="tablist" aria-label="Experience and education">
         <button className={tab === 'experience' ? 'active' : ''} onClick={() => { setTab('experience'); setOpenItem(0); }} role="tab" aria-selected={tab === 'experience'}><BriefcaseBusiness size={17} /> Experience</button>
         <button className={tab === 'education' ? 'active' : ''} onClick={() => { setTab('education'); setOpenItem(0); }} role="tab" aria-selected={tab === 'education'}><GraduationCap size={17} /> Education</button>

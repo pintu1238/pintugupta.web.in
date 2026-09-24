@@ -3,25 +3,26 @@
 import { ArrowUpRight, ChevronLeft, ChevronRight, ExternalLink, GitBranch, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { portfolioContent } from '@/data/portfolio';
-import { getNextIndex, getProjectPage } from '@/lib/portfolio';
+import { getNextIndex } from '@/lib/portfolio';
 import SectionHeading from './SectionHeading';
 import ScrollReveal from './ScrollReveal';
 
 export default function ProjectsSection() {
-  const [page, setPage] = useState(1);
-  const projectPage = getProjectPage(portfolioContent.projects, page, 3);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const projectCount = portfolioContent.projects.length;
+  const visibleProjects = [0, 1, 2].map((offset) => portfolioContent.projects[(activeIndex + offset) % projectCount]);
 
   const changePage = (direction: 'next' | 'previous') => {
-    setPage(getNextIndex(projectPage.page - 1, projectPage.pageCount, direction) + 1);
+    setActiveIndex(getNextIndex(activeIndex, projectCount, direction));
   };
 
   return (
     <section className="section projectsSection" id="projects">
-      <SectionHeading eyebrow="Selected work" title="Featured Projects" description="A collection of full stack, AI, and machine learning products built with curiosity and care." />
-      <div className="projectControls"><button className="roundButton" onClick={() => changePage('previous')} aria-label="Previous projects"><ChevronLeft size={19} /></button><span>0{projectPage.page} <em>/ 0{projectPage.pageCount}</em></span><button className="roundButton" onClick={() => changePage('next')} aria-label="Next projects"><ChevronRight size={19} /></button></div>
+      <SectionHeading eyebrow="My work" title="Featured Projects" description="A collection of full stack, AI, and machine learning products built with curiosity and care." />
+      <div className="projectControls"><button className="roundButton" onClick={() => changePage('previous')} aria-label="Previous projects"><ChevronLeft size={19} /></button><span>{String(activeIndex + 1).padStart(2, '0')} <em>/ {String(projectCount).padStart(2, '0')}</em></span><button className="roundButton" onClick={() => changePage('next')} aria-label="Next projects"><ChevronRight size={19} /></button></div>
       <div className="projectGrid">
-        {projectPage.items.map((project, index) => (
-          <ScrollReveal key={project.title} delay={index * 90}>
+        {visibleProjects.map((project, index) => (
+          <ScrollReveal key={`${project.title}-${activeIndex}`} delay={index * 90}>
             <article className={`projectCard card accent-${project.accent}`}>
               <div className="projectCardTop"><span className="projectIcon"><Code2Icon /></span><span className="projectCategory">{project.category}</span></div>
               <h3>{project.title}</h3>
@@ -33,7 +34,7 @@ export default function ProjectsSection() {
           </ScrollReveal>
         ))}
       </div>
-      <div className="projectDots" aria-label="Project pages">{Array.from({ length: projectPage.pageCount }, (_, index) => <button key={index} className={projectPage.page === index + 1 ? 'active' : ''} onClick={() => setPage(index + 1)} aria-label={`Go to project page ${index + 1}`} />)}</div>
+      <div className="projectDots" aria-label="Projects">{portfolioContent.projects.map((project, index) => <button key={project.title} className={activeIndex === index ? 'active' : ''} onClick={() => setActiveIndex(index)} aria-label={`Go to project ${index + 1}`} />)}</div>
       <a href="https://github.com" className="button buttonGhost centeredButton" target="_blank" rel="noreferrer">View more on GitHub <ArrowUpRight size={17} /></a>
     </section>
   );

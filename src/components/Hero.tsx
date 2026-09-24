@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { ArrowDown, ArrowRight, Code2, Database, Sparkles, Terminal } from 'lucide-react';
 import { portfolioContent } from '@/data/portfolio';
 
@@ -21,8 +22,8 @@ export default function Hero() {
         <p className="heroHeadline">{identity.headline}</p>
         <p className="heroSummary">{identity.summary}</p>
         <div className="heroActions">
-          <a className="button buttonPrimary" href="#projects">Explore my work <ArrowRight size={17} /></a>
-          <a className="button buttonGhost" href="#contact">Let&apos;s connect <ArrowRight size={17} /></a>
+          <a className="button buttonPrimary" href="#projects">View my projects <ArrowRight size={17} /></a>
+          <a className="button buttonGhost" href="#contact">Get in touch <ArrowRight size={17} /></a>
         </div>
         <a className="scrollHint" href="#experience"><span>Scroll to explore</span><ArrowDown size={15} /></a>
       </div>
@@ -31,7 +32,7 @@ export default function Hero() {
         <div className="orbit orbitTwo" />
         <div className="orbit orbitThree" />
         <div className="heroGlow" />
-        <div className="avatarCard"><span>{identity.shortName}</span><small>build / learn / ship</small></div>
+        <div className="avatarCard">{identity.profileImage ? <Image src={identity.profileImage} alt={`${identity.name} profile`} width={190} height={230} priority /> : <span>{identity.shortName}</span>}<small>build / learn / ship</small></div>
         <span className="codeLabel labelTop"><Code2 size={14} /> &lt;AI /&gt;</span>
         <span className="codeLabel labelLeft"><Terminal size={14} /> def()</span>
         <span className="codeLabel labelBottom"><Database size={14} /> data</span>

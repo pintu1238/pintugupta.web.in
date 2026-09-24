@@ -8,7 +8,7 @@ export default function AboutSection() {
 
   return (
     <section className="section" id="about">
-      <SectionHeading eyebrow="Who I am" title="About Me" description="The person behind the products, systems, and experiments." />
+      <SectionHeading eyebrow="Who I am" title="About Me" description="A glimpse into my journey and expertise in AI and data." />
       <div className="aboutGrid">
         <ScrollReveal className="aboutCopy card">
           <div className="profileHeading"><div className="miniAvatar">{identity.shortName}</div><div><h3>{identity.name}</h3><p>Full Stack Developer · AI Engineer</p><span><MapPin size={14} /> {identity.location}</span></div></div>

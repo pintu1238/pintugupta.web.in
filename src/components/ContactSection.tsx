@@ -42,7 +42,7 @@ export default function ContactSection() {
 
   return (
     <section className="section contactSection" id="contact">
-      <SectionHeading eyebrow="Contact" title="Let&apos;s Build Something" description="Have a product idea, a technical challenge, or just want to say hello? I would love to hear from you." />
+      <SectionHeading eyebrow="Contact" title="Get In Touch" description="I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your visions." />
       <div className="contactGrid">
         <div className="contactDetails">
           <ScrollReveal><button className="contactCard card" onClick={() => copyValue('email', identity.email)}><span className="contactIcon"><Mail size={21} /></span><span><small>Email</small><strong>{identity.email}</strong></span><span className="copyHint">{copied === 'email' ? <Check size={17} /> : <Copy size={16} />}</span></button></ScrollReveal>

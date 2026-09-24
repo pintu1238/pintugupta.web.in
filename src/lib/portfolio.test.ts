@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { portfolioContent } from '../data/portfolio';
 import { getNextIndex, getProjectPage } from './portfolio';
 
 describe('portfolio helpers', () => {
@@ -21,5 +22,10 @@ describe('portfolio helpers', () => {
     expect(getNextIndex(0, 4, 'previous')).toBe(3);
     expect(getNextIndex(3, 4, 'next')).toBe(0);
     expect(getNextIndex(1, 4, 'next')).toBe(2);
+  });
+
+  it('keeps enough content for the reference-style carousel and recognition grid', () => {
+    expect(portfolioContent.projects.length).toBeGreaterThanOrEqual(12);
+    expect(portfolioContent.achievements.length).toBeGreaterThanOrEqual(5);
   });
 });
