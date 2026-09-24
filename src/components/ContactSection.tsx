@@ -29,7 +29,7 @@ export default function ContactSection() {
     event.preventDefault();
     setStatus('sending');
     setStatusMessage('');
-    const result = await submitContact(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000', form);
+    const result = await submitContact(process.env.NEXT_PUBLIC_API_URL || '', form);
     if (result.ok) {
       setStatus('success');
       setStatusMessage('Message sent. I will get back to you soon.');
