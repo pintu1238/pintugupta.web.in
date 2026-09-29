@@ -29,6 +29,7 @@ export const portfolioContent = {
     resumeLabel: 'Download Resume',
     github,
     linkedin: 'https://www.linkedin.com/in/pintu-gupta-834254251/',
+    youtube: 'https://www.youtube.com/@CoderBoyz-g1j',
     leetcode: 'https://leetcode.com/u/pintu_kumar5161/',
     hackerrank: 'https://www.hackerrank.com/profile/vickygup9900',
   },

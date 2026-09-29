@@ -44,6 +44,26 @@ function validMessage() {
 
 const submit = () => host.querySelector<HTMLButtonElement>('.submitButton')!;
 
+describe('contact social profiles', () => {
+  it('links each requested profile once with its own brand logo', () => {
+    const links = [...host.querySelectorAll<HTMLAnchorElement>('.socialLinks a')];
+    expect(links.map((link) => [link.getAttribute('aria-label'), link.href])).toEqual([
+      ['GitHub', 'https://github.com/pintu1238'],
+      ['LinkedIn', 'https://www.linkedin.com/in/pintu-gupta-834254251/'],
+      ['YouTube', 'https://www.youtube.com/@CoderBoyz-g1j'],
+      ['LeetCode', 'https://leetcode.com/u/pintu_kumar5161/'],
+    ]);
+    for (const link of links) {
+      expect(link.target).toBe('_blank');
+      expect(link.relList.contains('noreferrer')).toBe(true);
+      const logo = link.querySelector('svg');
+      expect(logo?.querySelector('title')?.textContent).toBe(`${link.getAttribute('aria-label')} logo`);
+      expect(logo?.getAttribute('aria-hidden')).toBe('true');
+      expect(logo?.querySelector('path')?.getAttribute('d')).toBeTruthy();
+    }
+  });
+});
+
 describe('contact form user actions', () => {
   it('rejects missing, whitespace-only and invalid email fields before sending', () => {
     expect(submit().disabled).toBe(true);

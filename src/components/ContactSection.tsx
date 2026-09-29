@@ -1,11 +1,12 @@
 'use client';
 
-import { Check, CodeXml, Copy, GitBranch, Link2, Mail, MapPin, MessageSquare, Phone, Send, Terminal, User } from 'lucide-react';
+import { Check, Copy, Mail, MapPin, MessageSquare, Phone, Send, User } from 'lucide-react';
 import { FormEvent, useState } from 'react';
 import { portfolioContent } from '@/data/portfolio';
 import { submitContact } from '@/lib/contact';
 import SectionHeading from './SectionHeading';
 import ScrollReveal from './ScrollReveal';
+import SocialIcon, { type SocialBrand } from './SocialIcon';
 
 type FormState = { name: string; email: string; subject: string; message: string };
 const initialForm: FormState = { name: '', email: '', subject: '', message: '' };
@@ -44,12 +45,11 @@ export default function ContactSection() {
     }
   };
 
-  const socials = [
-    { label: 'GitHub', href: identity.github, icon: GitBranch },
-    { label: 'LinkedIn', href: identity.linkedin, icon: Link2 },
-    { label: 'LeetCode', href: identity.leetcode, icon: CodeXml },
-    { label: 'HackerRank', href: identity.hackerrank, icon: Terminal },
-    { label: 'Email Pintu', href: `mailto:${identity.email}`, icon: Mail },
+  const socials: { label: SocialBrand; href: string }[] = [
+    { label: 'GitHub', href: identity.github },
+    { label: 'LinkedIn', href: identity.linkedin },
+    { label: 'YouTube', href: identity.youtube },
+    { label: 'LeetCode', href: identity.leetcode },
   ];
 
   return (
@@ -70,7 +70,7 @@ export default function ContactSection() {
           {copied === 'unavailable' && <p className="formStatus" role="status">Copy is unavailable. You can use the email link below.</p>}
           <ScrollReveal className="socialCard card" delay={210}>
             <h3>Connect With Me</h3>
-            <div className="socialLinks">{socials.map(({ label, href, icon: Icon }) => <a href={href} key={label} target="_blank" rel="noreferrer" aria-label={label} title={label}><Icon size={21} /></a>)}</div>
+            <div className="socialLinks">{socials.map(({ label, href }) => <a href={href} key={label} target="_blank" rel="noreferrer" aria-label={label} title={label}><SocialIcon brand={label} /></a>)}</div>
             <p>Follow me for updates and connect professionally.</p>
           </ScrollReveal>
         </div>
