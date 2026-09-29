@@ -32,7 +32,10 @@ export default function Hero() {
     <section className="hero section" id="top">
       <div className="heroCopy">
         <p className="heroGreeting">{identity.eyebrow}</p>
-        <h1 aria-label={identity.roles.join(', ')}><span aria-hidden="true">{role}<i className="typingCursor" /></span></h1>
+        <h1 aria-label={identity.roles.join(', ')}>
+          {identity.roles.map((label) => <span key={label} className="roleSizer" aria-hidden="true">{label}<i className="typingCursor" /></span>)}
+          <span aria-hidden="true">{role}<i className="typingCursor" /></span>
+        </h1>
         <p className="heroHeadline">{identity.headline}</p>
         <p className="heroSummary">{identity.summary}</p>
         <div className="heroActions">
@@ -47,7 +50,7 @@ export default function Hero() {
           <div className="orbit orbitTwo" aria-hidden="true" />
           <div className="orbitParticles" aria-hidden="true"><i /><i /><i /><i /></div>
           <div className="avatarCard">
-            <Image src={identity.profileImage} alt="Pintu Kumar" width={560} height={560} sizes="(min-width: 1280px) 280px, (min-width: 768px) 246px, 200px" preload />
+            <Image src={identity.profileImage} alt="Pintu Kumar" width={560} height={560} sizes="(min-width: 1920px) 304px, (min-width: 1680px) 292px, (min-width: 1400px) 280px, (min-width: 1300px) 260px, (min-width: 1200px) 246px, (min-width: 768px) 224px, (min-width: 576px) 192px, (min-width: 361px) 160px, (min-width: 321px) 152px, 144px" preload />
           </div>
           <span className="codeLabel labelTop" aria-hidden="true">&lt;AI/&gt;</span>
           <span className="codeLabel labelLeft" aria-hidden="true">def()</span>

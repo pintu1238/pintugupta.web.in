@@ -51,6 +51,12 @@ The five-card gallery combines two original certificates, a supplied hackathon p
 
 On Vercel, `/api/*` is served by the API functions in `api/`. Outside Vercel, the frontend proxies `/api/*` to Express on port 4000 by default. For separate production hosting, set `API_INTERNAL_URL` to the backend URL before building, or use `NEXT_PUBLIC_API_URL` for direct browser-to-API requests. Keep the PostgreSQL connection string on the backend only.
 
+## Responsive layout
+
+The 12 screen-size bands in `src/app/globals.css` cover extra-small phones through ultra-wide desktops. Project cards use 1 column below 768px, 2 up to 1199px, and 3 from 1200px. Menu, hero, gallery and form layouts scale independently for readability. The 361px boundary belongs to the 361–575px band.
+
+Browser checks, breakpoint coverage and regression details are in `docs/responsive-verification-2026-09-29.md`.
+
 ## Verification
 
 ```bash

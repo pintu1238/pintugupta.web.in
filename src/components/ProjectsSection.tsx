@@ -11,7 +11,8 @@ function subscribeResize(callback: () => void) {
   window.addEventListener('resize', callback);
   return () => window.removeEventListener('resize', callback);
 }
-const readColumns = () => window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+// Match the CSS queries, including fractional widths at browser zoom levels.
+const readColumns = () => window.matchMedia('(min-width: 1200px)').matches ? 3 : window.matchMedia('(min-width: 768px)').matches ? 2 : 1;
 
 export default function ProjectsSection() {
   const [position, setPosition] = useState(3);
@@ -22,6 +23,17 @@ export default function ProjectsSection() {
   const moving = useRef(false);
   const count = projects.length;
   const activeIndex = ((position - 3) % count + count) % count;
+
+  useEffect(() => {
+    const resetForViewport = () => {
+      // A resize cancels the in-flight transition, so transitionend may never fire.
+      moving.current = false;
+      setAnimate(false);
+      setPosition((current) => ((current - 3) % count + count) % count + 3);
+    };
+    window.addEventListener('resize', resetForViewport);
+    return () => window.removeEventListener('resize', resetForViewport);
+  }, [count]);
 
   const move = (direction: number) => {
     if (moving.current) return;
