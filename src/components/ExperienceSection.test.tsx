@@ -3,7 +3,7 @@ import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import ExperienceSection from './ExperienceSection';
 
-describe('ExperienceSection keyboard tabs', () => {
+describe('ExperienceSection', () => {
   let host: HTMLDivElement;
   let root: Root;
 
@@ -35,6 +35,47 @@ describe('ExperienceSection keyboard tabs', () => {
     act(() => button.dispatchEvent(event));
     return event;
   }
+
+  it('renders the five approved roles newest first with the correct company and period', () => {
+    const cards = [...host.querySelectorAll('.timelineButton')];
+    expect(cards.map((card) => ({
+      title: card.querySelector('strong')?.textContent,
+      company: card.querySelector('b')?.textContent,
+      period: card.querySelector('small:last-child')?.textContent?.trim(),
+    }))).toEqual([
+      { title: 'Backend Developer & AI/ML Developer', company: 'Code Crafter', period: 'July 2026 – Present' },
+      { title: 'AI/ML Engineer Intern', company: 'iplairani.com', period: 'January 2026 – June 2026' },
+      { title: 'Backend Developer Intern', company: 'Globiz Technology', period: 'June 2025 – December 2025' },
+      { title: 'Software Developer Intern', company: 'ITJOBXS', period: 'May 2025 – June 2025' },
+      { title: 'Machine Learning Intern', company: 'Wayspire', period: 'June 2024 – August 2024' },
+    ]);
+  });
+
+  it('opens the matching role description for each company and closes the previous card', () => {
+    for (const [company, topics] of [
+      ['Code Crafter', ['Java', 'Spring Boot', 'AI/ML']],
+      ['iplairani.com', ['RAG', 'LangChain', 'Ollama', 'FastAPI', 'fine-tuning', 'MLOps']],
+      ['Globiz Technology', ['Java', 'Spring Boot', 'Hibernate', 'SQL']],
+      ['ITJOBXS', ['responsive', 'authentication', 'SQL']],
+      ['Wayspire', ['Python', 'data cleaning', 'machine learning']],
+    ] as const) {
+      const button = [...host.querySelectorAll<HTMLButtonElement>('.timelineButton')]
+        .find((item) => item.querySelector('b')?.textContent === company);
+      expect(button, `Missing experience for ${company}`).toBeDefined();
+      act(() => button!.click());
+      expect(button!.getAttribute('aria-expanded')).toBe('true');
+      expect(host.querySelectorAll('.timelineDetails')).toHaveLength(1);
+      const details = button!.closest('article')!.querySelector('.timelineDetails')!;
+      expect(details.querySelectorAll('li').length).toBeGreaterThanOrEqual(3);
+      for (const topic of topics) expect(details.textContent).toContain(topic);
+    }
+  });
+
+  it('omits an unspecified company location while preserving supplied locations', () => {
+    const cards = [...host.querySelectorAll('.timelineButton')];
+    expect(cards[0].querySelector('small span')).toBeNull();
+    expect(cards[1].querySelector('small span')?.textContent).toContain('Delhi, India');
+  });
 
   it('moves focus and selection with arrows, wraps at both ends, and supports Home/End', () => {
     const [experience, education] = tabs();

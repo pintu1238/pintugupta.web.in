@@ -58,7 +58,7 @@ export default function ExperienceSection() {
               <div className="timelineRail"><span className="timelineIcon">{tab === 'experience' ? <BriefcaseBusiness size={18} /> : <GraduationCap size={18} />}</span>{index !== items.length - 1 && <span className="timelineLine" />}</div>
               <article className={`timelineCard card ${isOpen ? 'timelineCardOpen' : ''}`}>
                 <button className="timelineButton" onClick={() => setOpenItem(isOpen ? -1 : index)} aria-expanded={isOpen}>
-                  <span><strong>{item.title}</strong><small><b>{item.organization}</b><span><MapPin size={14} /> {item.location}</span></small><small><CalendarDays size={14} /> {item.period}</small></span>
+                  <span><strong>{item.title}</strong><small><b>{item.organization}</b>{item.location && <span><MapPin size={14} /> {item.location}</span>}</small><small><CalendarDays size={14} /> {item.period}</small></span>
                   <ChevronDown size={20} className={isOpen ? 'rotate' : ''} />
                 </button>
                 {isOpen && <div className="timelineDetails"><ul>{item.details.map((detail) => <li key={detail}>{detail}</li>)}</ul></div>}

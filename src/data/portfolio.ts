@@ -8,7 +8,7 @@ export type Project = {
   demo?: string;
   accent: 'lime' | 'cyan' | 'violet';
 };
-export type TimelineItem = { title: string; organization: string; location: string; period: string; details: string[] };
+export type TimelineItem = { title: string; organization: string; location?: string; period: string; details: string[] };
 export type Achievement = { title: string; result: string; description: string; image: string; imageAlt: string; href: string; kind: 'certificate' | 'illustration' | 'event'; accent: 'lime' | 'cyan' | 'violet' };
 
 const github = 'https://github.com/pintu1238';
@@ -20,7 +20,7 @@ export const portfolioContent = {
     eyebrow: "Hi, I'm Pintu Kumar.",
     roles: ['Full Stack Developer', 'AI Engineer', 'Machine Learning Engineer'],
     headline: 'Building the Future with Code',
-    summary: 'Full Stack Developer, AI Engineer and Machine Learning Engineer building intelligent applications from idea to deployment. I work with Next.js, Node.js, Python, RAG and production ML pipelines, connecting useful interfaces with dependable backend systems. My experience spans AI/ML at Globiz Technology, data science at Wayspire, and cloud data engineering on Azure and AWS.',
+    summary: 'Full Stack Developer, AI Engineer and Machine Learning Engineer building intelligent applications from idea to deployment. I work with Next.js, Java, Spring Boot, Node.js, Python and RAG, connecting useful interfaces with dependable backend systems. I currently work on backend development and AI/ML at Code Crafter, following experience at iplairani.com, Globiz Technology, ITJOBXS and Wayspire.',
     location: 'Ludhiana, Punjab, India',
     email: 'pintugupta99880@gmail.com',
     phone: '+91 6284929772',
@@ -36,7 +36,7 @@ export const portfolioContent = {
   about: {
     paragraphs: [
       "I'm Pintu Kumar, a Full Stack Developer, AI Engineer and Machine Learning Engineer based in Punjab, India. I'm pursuing a B.Tech in Computer Science and Engineering at GNA University, with a CGPA of 8.14.",
-      'My work connects software engineering with applied AI: responsive web applications, REST APIs, retrieval-augmented generation, NLP and modular machine learning pipelines. During internships at Globiz Technology and Wayspire, I worked on model training, inference, data ingestion, ETL pipelines and analytics dashboards.',
+      'My work connects software engineering with applied AI: Java and Spring Boot backend services, responsive web applications, REST APIs, retrieval-augmented generation and machine learning pipelines. I currently work as a Backend Developer & AI/ML Developer at Code Crafter. Previously, I worked on AI/ML at iplairani.com, backend development at Globiz Technology, software development at ITJOBXS and machine learning at Wayspire.',
       'I enjoy taking a project through its complete lifecycle, from clean data and experiments to a usable product. I have built 10+ AI/ML projects and solved 250+ DSA and SQL problems. I am currently exploring LangGraph, agentic AI and scalable data engineering, and I welcome opportunities to build useful products with thoughtful teams.',
     ],
     skills: ['Full Stack Development (Next.js, React, Node.js)', 'Machine Learning & Deep Learning', 'Generative AI & LLM Applications', 'RAG, LangChain & AI Agents', 'MLOps (MLflow, Docker, CI/CD)', 'Data Engineering (PySpark, Azure, Databricks)', 'APIs & Databases (FastAPI, PostgreSQL, MongoDB)', 'Data Analysis & Visualization (Power BI)'],
@@ -44,21 +44,52 @@ export const portfolioContent = {
   },
   experience: [
     {
-      title: 'AI/ML Engineer Intern', organization: 'Globiz Technology', location: 'Ludhiana, India', period: 'October 2025 – January 2026',
+      title: 'Backend Developer & AI/ML Developer', organization: 'Code Crafter', period: 'July 2026 – Present',
       details: [
-        'Developed end-to-end machine learning pipelines for preprocessing, training, evaluation and inference with Python.',
-        'Built and optimized deep learning and transformer-based NLP models for unstructured data.',
-        'Used MLflow and Docker for experiment tracking, model versioning and reproducible deployment.',
-        'Integrated RAG and LLM applications with data ingestion and feature pipelines using PySpark and SQL.',
+        'Develop backend services and REST APIs with Java and Spring Boot, connecting application workflows with reliable business logic.',
+        'Implement SQL persistence using Spring Data JPA and Hibernate, with validation, exception handling and maintainable service layers.',
+        'Build and integrate AI/ML capabilities using Python, FastAPI and LLM-based services for intelligent application features.',
+        'Work on RAG workflows with LangChain, embeddings and vector databases to connect AI responses with relevant application data.',
+        'Collaborate on API integration, testing and deployment across backend and AI/ML services.',
       ],
     },
     {
-      title: 'Data Science Intern', organization: 'Wayspire', location: 'Gurugram, India', period: 'January 2025 – March 2025',
+      title: 'AI/ML Engineer Intern', organization: 'iplairani.com', location: 'Delhi, India · On-site', period: 'January 2026 – June 2026',
       details: [
-        'Built ingestion and ETL/ELT pipelines with Python, SQL and Azure Data services.',
-        'Worked with SQL and MongoDB transformations, data validation and analytics-ready storage.',
-        'Performed exploratory data analysis, feature selection and predictive model evaluation.',
-        'Created interactive Power BI dashboards and reports backed by Azure data architecture.',
+        'Developed Generative AI and NLP applications with Python, Large Language Models (LLMs) and LangChain to support intelligent workflows.',
+        'Built Retrieval-Augmented Generation (RAG) pipelines using document preprocessing, chunking, embeddings and vector databases for contextual answers from PDFs and custom datasets.',
+        'Implemented agentic AI workflows with multi-step reasoning, tool calling, conversational memory and semantic search.',
+        'Integrated open-source LLMs through Ollama and exposed AI capabilities through FastAPI services for application and backend integration.',
+        'Worked on prompt engineering and fine-tuning workflows, evaluating response quality and improving the relevance of model outputs.',
+        'Applied MLOps practices to model evaluation, monitoring and deployment, supporting maintainable real-time inference workflows.',
+      ],
+    },
+    {
+      title: 'Backend Developer Intern', organization: 'Globiz Technology', location: 'Ludhiana, Punjab, India · On-site', period: 'June 2025 – December 2025',
+      details: [
+        'Developed Java backend services with Spring Boot, organizing application logic into controller, service and repository layers.',
+        'Built REST APIs for application workflows with request validation, consistent responses and centralized exception handling.',
+        'Used Spring Data JPA and Hibernate to work with SQL databases, entity relationships and transactional operations.',
+        'Worked on authentication and authorization with Spring Security, and collaborated with frontend developers on API integration.',
+        'Tested and debugged backend endpoints, reviewed database queries and documented APIs to support maintainable development.',
+      ],
+    },
+    {
+      title: 'Software Developer Intern', organization: 'ITJOBXS', location: 'Mumbai, Maharashtra, India · Remote', period: 'May 2025 – June 2025',
+      details: [
+        'Developed a responsive web section for itjobxs.com, adapting layouts and interactions across desktop and mobile screens.',
+        'Worked on user verification and authentication flows, including form validation and integration with backend services.',
+        'Used SQL and backend application logic to support structured data access and user-facing features.',
+        'Collaborated on feature testing, debugging and interface improvements to keep application workflows consistent.',
+      ],
+    },
+    {
+      title: 'Machine Learning Intern', organization: 'Wayspire', location: 'Gurugram, Haryana, India · On-site', period: 'June 2024 – August 2024',
+      details: [
+        'Used Python for data cleaning, preprocessing and exploratory analysis to prepare structured datasets for machine learning.',
+        'Worked on data ingestion workflows that transformed raw application usage data into analytical datasets for reporting.',
+        'Explored feature selection, model training and evaluation to understand predictive performance and model behavior.',
+        'Documented data preparation steps and experiment results to support reproducible analysis and collaboration.',
       ],
     },
   ] satisfies TimelineItem[],
