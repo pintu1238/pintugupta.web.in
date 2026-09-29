@@ -1,6 +1,6 @@
 # Full-Stack AI Portfolio
 
-An original neon/glass portfolio starter for a Full Stack Developer, AI Engineer, and Machine Learning Engineer.
+Pintu Kumar's portfolio for Full Stack Development, AI Engineering and Machine Learning, with a reference-matched neon/glass layout.
 
 ## Stack
 
@@ -43,7 +43,13 @@ An original neon/glass portfolio starter for a Full Stack Developer, AI Engineer
 
 ## Content customization
 
-All visible portfolio content lives in `src/data/portfolio.ts`. Replace the placeholder identity, social links, projects, work history, education, achievements, photo, and contact details before publishing.
+Personal content lives in `src/data/portfolio.ts`, sourced from the supplied resume and public GitHub repositories. The project carousel contains 16 projects: three from the resume, HRMS.sh, and twelve selected GitHub projects, including UniEats.
+
+The original resume is served at `/Pintu_Kumar_Resume.pdf`; the supplied portrait is `/pintu-kumar.jpg`. Resume education dates are preserved as supplied. Update them here when they change.
+
+The five-card gallery combines two original certificates with three explicitly labeled AI-edited illustrations. Certificate previews link to the original PDFs. The edited scenes are not claims of event attendance or awards; provenance and certificate dates are documented in `docs/portfolio-media-handoff-2026-09-29.md`.
+
+On Vercel, `/api/*` is served by the API functions in `api/`. Outside Vercel, the frontend proxies `/api/*` to Express on port 4000 by default. For separate production hosting, set `API_INTERNAL_URL` to the backend URL before building, or use `NEXT_PUBLIC_API_URL` for direct browser-to-API requests. Keep the PostgreSQL connection string on the backend only.
 
 ## Verification
 

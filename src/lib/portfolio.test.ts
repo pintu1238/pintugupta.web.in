@@ -24,8 +24,14 @@ describe('portfolio helpers', () => {
     expect(getNextIndex(1, 4, 'next')).toBe(2);
   });
 
-  it('keeps enough content for the reference-style carousel and recognition grid', () => {
-    expect(portfolioContent.projects.length).toBeGreaterThanOrEqual(12);
-    expect(portfolioContent.achievements.length).toBeGreaterThanOrEqual(5);
+  it('includes 16 unique, linked projects with the requested HRMS and UniEats demos', () => {
+    const projects = portfolioContent.projects;
+    expect(projects).toHaveLength(16);
+    expect(new Set(projects.map((project) => project.title)).size).toBe(16);
+    for (const project of projects) {
+      expect(project.github || project.demo).toMatch(/^https:\/\//);
+    }
+    expect(projects.filter((project) => project.demo === 'https://hrms.sh/')).toHaveLength(1);
+    expect(projects.filter((project) => project.demo === 'https://cafe-websites-five.vercel.app')).toHaveLength(1);
   });
 });

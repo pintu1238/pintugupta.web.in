@@ -10,15 +10,15 @@ type Tab = 'experience' | 'education';
 
 export default function ExperienceSection() {
   const [tab, setTab] = useState<Tab>('experience');
-  const [openItem, setOpenItem] = useState(0);
+  const [openItem, setOpenItem] = useState(-1);
   const items = (tab === 'experience' ? portfolioContent.experience : portfolioContent.education) as TimelineItem[];
 
   return (
     <section className="section" id="experience">
       <SectionHeading eyebrow="Experience" title="Professional Journey" description="Experiences that defined my professional growth and skills." />
       <div className="tabSwitch" role="tablist" aria-label="Experience and education">
-        <button className={tab === 'experience' ? 'active' : ''} onClick={() => { setTab('experience'); setOpenItem(0); }} role="tab" aria-selected={tab === 'experience'}><BriefcaseBusiness size={17} /> Experience</button>
-        <button className={tab === 'education' ? 'active' : ''} onClick={() => { setTab('education'); setOpenItem(0); }} role="tab" aria-selected={tab === 'education'}><GraduationCap size={17} /> Education</button>
+        <button className={tab === 'experience' ? 'active' : ''} onClick={() => { setTab('experience'); setOpenItem(-1); }} role="tab" aria-selected={tab === 'experience'}><BriefcaseBusiness size={20} /> Experience</button>
+        <button className={tab === 'education' ? 'active' : ''} onClick={() => { setTab('education'); setOpenItem(-1); }} role="tab" aria-selected={tab === 'education'}><GraduationCap size={20} /> Education</button>
       </div>
       <div className="timeline">
         {items.map((item, index) => {

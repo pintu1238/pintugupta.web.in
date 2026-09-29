@@ -1,6 +1,6 @@
 'use client';
 
-import { Camera, Check, Copy, GitBranch, Link2, Mail, MapPin, Phone, Play, Send } from 'lucide-react';
+import { Check, CodeXml, Copy, GitBranch, Link2, Mail, MapPin, MessageSquare, Phone, Send, Terminal, User } from 'lucide-react';
 import { FormEvent, useState } from 'react';
 import { portfolioContent } from '@/data/portfolio';
 import { submitContact } from '@/lib/contact';
@@ -8,7 +8,6 @@ import SectionHeading from './SectionHeading';
 import ScrollReveal from './ScrollReveal';
 
 type FormState = { name: string; email: string; subject: string; message: string };
-
 const initialForm: FormState = { name: '', email: '', subject: '', message: '' };
 
 export default function ContactSection() {
@@ -17,16 +16,21 @@ export default function ContactSection() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [statusMessage, setStatusMessage] = useState('');
   const [copied, setCopied] = useState<string | null>(null);
+  const valid = Boolean(form.name.trim() && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()) && form.message.trim());
 
   const copyValue = async (label: string, value: string) => {
-    if (!navigator.clipboard) return;
-    await navigator.clipboard.writeText(value);
-    setCopied(label);
-    window.setTimeout(() => setCopied(null), 1600);
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(label);
+      window.setTimeout(() => setCopied(null), 1600);
+    } catch {
+      setCopied('unavailable');
+    }
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!valid || status === 'sending') return;
     setStatus('sending');
     setStatusMessage('');
     const result = await submitContact(process.env.NEXT_PUBLIC_API_URL || '', form);
@@ -40,17 +44,50 @@ export default function ContactSection() {
     }
   };
 
+  const socials = [
+    { label: 'GitHub', href: identity.github, icon: GitBranch },
+    { label: 'LinkedIn', href: identity.linkedin, icon: Link2 },
+    { label: 'LeetCode', href: identity.leetcode, icon: CodeXml },
+    { label: 'HackerRank', href: identity.hackerrank, icon: Terminal },
+    { label: 'Email Pintu', href: `mailto:${identity.email}`, icon: Mail },
+  ];
+
   return (
     <section className="section contactSection" id="contact">
-      <SectionHeading eyebrow="Contact" title="Get In Touch" description="I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your visions." />
+      <SectionHeading eyebrow="Contact" title="Get In Touch" description="I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions. Let's create something amazing together!" />
       <div className="contactGrid">
         <div className="contactDetails">
-          <ScrollReveal><button className="contactCard card" onClick={() => copyValue('email', identity.email)}><span className="contactIcon"><Mail size={21} /></span><span><small>Email</small><strong>{identity.email}</strong></span><span className="copyHint">{copied === 'email' ? <Check size={17} /> : <Copy size={16} />}</span></button></ScrollReveal>
-          <ScrollReveal delay={70}><button className="contactCard card" onClick={() => copyValue('phone', identity.phone)}><span className="contactIcon"><Phone size={21} /></span><span><small>Phone</small><strong>{identity.phone}</strong></span><span className="copyHint">{copied === 'phone' ? <Check size={17} /> : <Copy size={16} />}</span></button></ScrollReveal>
-          <ScrollReveal delay={140}><div className="contactCard card"><span className="contactIcon"><MapPin size={21} /></span><span><small>Location</small><strong>{identity.location}</strong></span></div></ScrollReveal>
-          <ScrollReveal className="socialCard card" delay={210}><h3>Connect with me</h3><div className="socialLinks"><a href="#contact" aria-label="GitHub"><GitBranch size={19} /></a><a href="#contact" aria-label="LinkedIn"><Link2 size={19} /></a><a href="#contact" aria-label="Instagram"><Camera size={19} /></a><a href="#contact" aria-label="YouTube"><Play size={19} /></a></div><p>Follow along for experiments, projects, and notes.</p></ScrollReveal>
+          {[{ label: 'Email', value: identity.email, icon: Mail }, { label: 'Phone', value: identity.phone, icon: Phone }].map(({ label, value, icon: Icon }, index) => (
+            <ScrollReveal key={label} delay={index * 70}>
+              <button className="contactCard card" onClick={() => copyValue(label, value)}>
+                <span className="contactIcon"><Icon size={24} /></span>
+                <span><small>{label}</small><strong>{value}</strong></span>
+                <span className="copyHint" aria-live="polite">{copied === label ? <Check size={17} /> : <Copy size={16} />}<span className="copyLabel">{copied === label ? 'Copied!' : 'Click to copy'}</span></span>
+              </button>
+            </ScrollReveal>
+          ))}
+          <ScrollReveal delay={140}><a className="contactCard card" href="https://www.google.com/maps/search/?api=1&query=Ludhiana%2C%20Punjab%2C%20India" target="_blank" rel="noreferrer"><span className="contactIcon"><MapPin size={24} /></span><span><small>Location</small><strong>{identity.location}</strong></span></a></ScrollReveal>
+          {copied === 'unavailable' && <p className="formStatus" role="status">Copy is unavailable. You can use the email link below.</p>}
+          <ScrollReveal className="socialCard card" delay={210}>
+            <h3>Connect With Me</h3>
+            <div className="socialLinks">{socials.map(({ label, href, icon: Icon }) => <a href={href} key={label} target="_blank" rel="noreferrer" aria-label={label} title={label}><Icon size={21} /></a>)}</div>
+            <p>Follow me for updates and connect professionally.</p>
+          </ScrollReveal>
         </div>
-        <ScrollReveal className="contactFormCard card" delay={100}><div className="formHeading"><span className="infoIcon"><Send size={17} /></span><div><h3>Send me a message</h3><p>I&apos;d love to hear about your project.</p></div></div><form onSubmit={handleSubmit}><div className="formRow"><label><span>Your name*</span><input required value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} placeholder="A curious builder" /></label><label><span>Your email*</span><input required type="email" value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} placeholder="you@example.com" /></label></div><label><span>Subject</span><input value={form.subject} onChange={(event) => setForm({ ...form, subject: event.target.value })} placeholder="A new idea" /></label><label><span>Message*</span><textarea required rows={6} value={form.message} onChange={(event) => setForm({ ...form, message: event.target.value })} placeholder="Tell me a little about what you are building..." /></label><button className="button buttonPrimary submitButton" type="submit" disabled={status === 'sending'}>{status === 'sending' ? 'Sending...' : 'Send message'} <Send size={16} /></button>{statusMessage && <p className={`formStatus ${status}`}>{statusMessage}</p>}</form></ScrollReveal>
+        <ScrollReveal className="contactFormCard card" delay={100}>
+          <div className="formHeading"><span className="infoIcon"><Send size={22} /></span><div><h3>Send Me a Message</h3><p>I&apos;d love to hear about your project</p></div></div>
+          <form onSubmit={handleSubmit}>
+            <div className="formRow">
+              <label className="iconField"><span className="srOnly">Your name</span><User size={18} /><input required name="name" autoComplete="name" maxLength={120} value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} placeholder="Your Name *" /></label>
+              <label className="iconField"><span className="srOnly">Your email</span><Mail size={18} /><input required name="email" autoComplete="email" type="email" maxLength={254} value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} placeholder="Your Email *" /></label>
+            </div>
+            <label className="iconField"><span className="srOnly">Subject</span><MessageSquare size={18} /><input name="subject" maxLength={200} value={form.subject} onChange={(event) => setForm({ ...form, subject: event.target.value })} placeholder="Subject" /></label>
+            <label><span className="srOnly">Message</span><textarea required name="message" maxLength={4000} rows={5} value={form.message} onChange={(event) => setForm({ ...form, message: event.target.value })} placeholder="Your Message *" /></label>
+            <button className="button buttonPrimary submitButton" type="submit" disabled={!valid || status === 'sending'}>{status === 'sending' ? 'Sending...' : 'Send Message'} <Send size={20} /></button>
+            <p className="formNote">* Required fields. Email will be validated automatically.</p>
+            {statusMessage && <p role="status" aria-live="polite" className={`formStatus ${status}`}>{statusMessage}</p>}
+          </form>
+        </ScrollReveal>
       </div>
       <a className="quickEmail" href={`mailto:${identity.email}`}><span>Prefer a quick chat?</span><strong>Drop me an email directly →</strong></a>
     </section>

@@ -11,7 +11,7 @@ export default function AboutSection() {
       <SectionHeading eyebrow="Who I am" title="About Me" description="A glimpse into my journey and expertise in AI and data." />
       <div className="aboutGrid">
         <ScrollReveal className="aboutCopy card">
-          <div className="profileHeading"><div className="miniAvatar">{identity.shortName}</div><div><h3>{identity.name}</h3><p>Full Stack Developer · AI Engineer</p><span><MapPin size={14} /> {identity.location}</span></div></div>
+          <div className="profileHeading"><div><h3>{identity.name}</h3><p>Full Stack Developer · AI Engineer · Machine Learning Engineer</p><span><MapPin size={14} /> {identity.location}</span></div></div>
           {about.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           <a className="button buttonPrimary smallButton" href="#contact">Let&apos;s connect <ArrowRight size={16} /></a>
         </ScrollReveal>
