@@ -9,7 +9,7 @@ export type Project = {
   accent: 'lime' | 'cyan' | 'violet';
 };
 export type TimelineItem = { title: string; organization: string; location: string; period: string; details: string[] };
-export type Achievement = { title: string; result: string; description: string; image: string; imageAlt: string; href: string; kind: 'certificate' | 'illustration'; accent: 'lime' | 'cyan' | 'violet' };
+export type Achievement = { title: string; result: string; description: string; image: string; imageAlt: string; href: string; kind: 'certificate' | 'illustration' | 'event'; accent: 'lime' | 'cyan' | 'violet' };
 
 const github = 'https://github.com/pintu1238';
 
@@ -181,7 +181,7 @@ export const portfolioContent = {
   ] satisfies Project[],
   achievements: [
     {title: 'AWS Academy Machine Learning Foundations', result: 'Certificate of Completion', description: 'Completed the 20-hour AWS Academy course on February 23, 2024.', image: '/portfolio-media/certificate-1709348196874.png', imageAlt: 'AWS Academy certificate issued to Pintu Kumar for Machine Learning Foundations', href: '/portfolio-media/certificate-1709348196874.pdf', kind: 'certificate', accent: 'lime'},
-    {title: 'Learning Together', result: 'Creative Gallery', description: 'An AI-edited classroom group portrait, included as an illustrative visual rather than a record of an event or award.', image: '/portfolio-media/pintu-achievement-02-ai.png', imageAlt: 'AI-edited illustrative classroom group portrait featuring Pintu Kumar', href: '/portfolio-media/pintu-achievement-02-ai.png', kind: 'illustration', accent: 'cyan'},
+    {title: 'Hackathon', result: 'Top 10', description: 'Participated in a hackathon and secured a place among the top 10.', image: '/portfolio-media/pintu-hackathon-top-10.png', imageAlt: 'Team collaborating on a laptop during a hackathon', href: '/portfolio-media/pintu-hackathon-top-10.png', kind: 'event', accent: 'cyan'},
     {title: 'GNA University DevOps Bootcamp', result: 'Certificate of Participation', description: 'Participated in the three-day DevOps bootcamp organized by the Data Pirates Club, September 18–20, 2024.', image: '/portfolio-media/certificate-1727362794680.png', imageAlt: 'GNA University certificate of participation issued to Pintu Kumar for the DevOps bootcamp', href: '/portfolio-media/certificate-1727362794680.pdf', kind: 'certificate', accent: 'violet'},
     {title: 'On Stage', result: 'Creative Gallery', description: 'An AI-edited stage portrait for this portfolio. This illustrative scene does not document an award or presentation.', image: '/portfolio-media/pintu-achievement-04-ai.png', imageAlt: 'AI-edited illustrative stage portrait featuring Pintu Kumar', href: '/portfolio-media/pintu-achievement-04-ai.png', kind: 'illustration', accent: 'lime'},
     {title: 'Community & Curiosity', result: 'Creative Gallery', description: 'An AI-edited auditorium group portrait celebrating collaboration, not evidence of attendance at a specific event.', image: '/portfolio-media/pintu-achievement-05-ai.png', imageAlt: 'AI-edited illustrative auditorium group portrait featuring Pintu Kumar', href: '/portfolio-media/pintu-achievement-05-ai.png', kind: 'illustration', accent: 'cyan'},
