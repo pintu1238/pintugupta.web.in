@@ -20,6 +20,7 @@
     "express": "latest",
     "lucide-react": "latest",
     "next": "latest",
+    "nodemailer": "10.0.12",
     "pg": "latest",
     "react": "latest",
     "react-dom": "latest"
