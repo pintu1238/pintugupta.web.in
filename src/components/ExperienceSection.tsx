@@ -1,7 +1,7 @@
 'use client';
 
 import { useId, useRef, useState, type KeyboardEvent } from 'react';
-import { BriefcaseBusiness, CalendarDays, ChevronDown, GraduationCap, MapPin } from 'lucide-react';
+import { BriefcaseBusiness, CalendarDays, ChevronDown, Gem, GraduationCap, MapPin } from 'lucide-react';
 import { portfolioContent, TimelineItem } from '@/data/portfolio';
 import SectionHeading from './SectionHeading';
 import ScrollReveal from './ScrollReveal';
@@ -14,11 +14,13 @@ export default function ExperienceSection() {
   const tabRefs = useRef<Record<Tab, HTMLButtonElement | null>>({ experience: null, education: null });
   const [tab, setTab] = useState<Tab>('experience');
   const [openItem, setOpenItem] = useState(-1);
+  const [openSkills, setOpenSkills] = useState(-1);
   const items = (tab === 'experience' ? portfolioContent.experience : portfolioContent.education) as TimelineItem[];
 
   function selectTab(next: Tab) {
     setTab(next);
     setOpenItem(-1);
+    setOpenSkills(-1);
   }
 
   function handleTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, current: Tab) {
@@ -53,6 +55,8 @@ export default function ExperienceSection() {
       <div key={value} className="timeline" role="tabpanel" id={`${id}-${value}-panel`} aria-labelledby={`${id}-${value}-tab`} hidden={tab !== value}>
         {tab === value && items.map((item, index) => {
           const isOpen = index === openItem;
+          const skillsOpen = index === openSkills;
+          const skillsId = `${id}-${value}-${index}-skills`;
           return (
             <ScrollReveal key={`${tab}-${item.title}`} delay={index * 70} className="timelineRow">
               <div className="timelineRail"><span className="timelineIcon">{tab === 'experience' ? <BriefcaseBusiness size={18} /> : <GraduationCap size={18} />}</span>{index !== items.length - 1 && <span className="timelineLine" />}</div>
@@ -62,6 +66,18 @@ export default function ExperienceSection() {
                   <ChevronDown size={20} className={isOpen ? 'rotate' : ''} />
                 </button>
                 {isOpen && <div className="timelineDetails"><ul>{item.details.map((detail) => <li key={detail}>{detail}</li>)}</ul></div>}
+                {!!item.skills?.length && <div className="timelineSkills">
+                  <button type="button" className="timelineSkillsButton"
+                    onClick={() => setOpenSkills(skillsOpen ? -1 : index)}
+                    aria-expanded={skillsOpen} aria-controls={skillsId}>
+                    <Gem size={18} aria-hidden="true" />
+                    <span>{item.skills.slice(0, 2).join(', ')}{item.skills.length > 2 && <> and <strong>+{item.skills.length - 2} skills</strong></>}</span>
+                    <ChevronDown size={16} className={skillsOpen ? 'rotate' : ''} aria-hidden="true" />
+                  </button>
+                  <ul id={skillsId} className="timelineSkillList" aria-label={`Skills at ${item.organization}`} hidden={!skillsOpen}>
+                    {item.skills.map((skill) => <li key={skill} className="chip">{skill}</li>)}
+                  </ul>
+                </div>}
               </article>
             </ScrollReveal>
           );

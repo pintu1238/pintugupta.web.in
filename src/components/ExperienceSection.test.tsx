@@ -77,6 +77,71 @@ describe('ExperienceSection', () => {
     expect(cards[1].querySelector('small span')?.textContent).toContain('Delhi, India');
   });
 
+  it.each([
+    ['Code Crafter', 'Java, Spring Boot and +13 skills', ['Java', 'Spring Boot', 'Python', 'FastAPI', 'Machine Learning', 'LangChain']],
+    ['iplairani.com', 'Large Language Models (LLM), Generative AI and +13 skills', ['Retrieval-Augmented Generation (RAG)', 'Agentic AI', 'Ollama', 'MLOps', 'Fine Tuning']],
+    ['Globiz Technology', 'Java, Spring Boot and +13 skills', ['Spring Security', 'Hibernate', 'Spring Data JPA', 'JUnit', 'SQL']],
+    ['ITJOBXS', 'MongoDB, Express.js and +13 skills', ['MongoDB', 'Express.js', 'React', 'Node.js', 'JavaScript']],
+    ['Wayspire', 'Python, Machine Learning and +13 skills', ['NumPy', 'Pandas', 'Scikit-learn', 'Data Cleaning', 'Model Evaluation']],
+  ])('reveals all 15 relevant skills for %s without opening its description', (company, summary, requiredSkills) => {
+    const card = [...host.querySelectorAll('article')].find((item) => item.querySelector('b')?.textContent === company)!;
+    const toggle = card.querySelector<HTMLButtonElement>('.timelineSkillsButton');
+    expect(toggle, `Missing visible skills summary for ${company}`).not.toBeNull();
+    expect(toggle!.textContent).toBe(summary);
+    expect(toggle!.closest('.timelineButton')).toBeNull();
+    expect(toggle!.getAttribute('aria-expanded')).toBe('false');
+    const list = document.getElementById(toggle!.getAttribute('aria-controls') ?? '')!;
+    expect(list).not.toBeNull();
+    expect(list.hidden).toBe(true);
+    act(() => toggle!.click());
+    expect(toggle!.getAttribute('aria-expanded')).toBe('true');
+    expect(list.hidden).toBe(false);
+    const skills = [...list.querySelectorAll('li')].map((item) => item.textContent);
+    expect(skills).toHaveLength(15);
+    expect(new Set(skills).size).toBe(15);
+    expect(skills).toEqual(expect.arrayContaining(requiredSkills));
+    expect(card.querySelector('.timelineButton')?.getAttribute('aria-expanded')).toBe('false');
+    act(() => toggle!.click());
+    expect(toggle!.getAttribute('aria-expanded')).toBe('false');
+    expect(list.hidden).toBe(true);
+  });
+
+  it('keeps skills separate from descriptions and resets skills when switching to education', () => {
+    const toggles = [...host.querySelectorAll<HTMLButtonElement>('.timelineSkillsButton')];
+    expect(toggles).toHaveLength(5);
+    act(() => toggles[0].click());
+    act(() => host.querySelector<HTMLButtonElement>('.timelineButton')!.click());
+    expect(toggles[0].getAttribute('aria-expanded')).toBe('true');
+    expect(host.querySelectorAll('.timelineDetails')).toHaveLength(1);
+    act(() => toggles[1].click());
+    expect(toggles[0].getAttribute('aria-expanded')).toBe('false');
+    expect(toggles[1].getAttribute('aria-expanded')).toBe('true');
+    act(() => tabs()[1].click());
+    expect(host.querySelectorAll('.timelineSkillsButton, .timelineSkillList')).toHaveLength(0);
+    act(() => tabs()[0].click());
+    expect(host.querySelectorAll('.timelineSkillsButton[aria-expanded="true"]')).toHaveLength(0);
+  });
+
+  it('shows the diploma between B.Tech and Higher Secondary with its certificate dates and grade', () => {
+    act(() => tabs()[1].click());
+    const cards = [...host.querySelectorAll<HTMLButtonElement>('.timelineButton')];
+    expect(cards.map((card) => card.querySelector('strong')?.textContent)).toEqual([
+      'B.Tech — Computer Science & Engineering',
+      'Advance One Year Diploma in Computer Application',
+      'Higher Secondary',
+    ]);
+    const diploma = cards[1];
+    expect(diploma.querySelector('b')?.textContent).toBe('Progressive Institute of Management & Technology');
+    expect(diploma.querySelector('small:last-child')?.textContent?.trim()).toBe('1 July 2021 – 30 July 2022');
+    act(() => diploma.click());
+    expect(diploma.getAttribute('aria-expanded')).toBe('true');
+    expect(diploma.closest('article')?.querySelector('.timelineDetails')?.textContent).toContain('Grade: A.');
+    act(() => cards[2].click());
+    expect(diploma.getAttribute('aria-expanded')).toBe('false');
+    expect(host.querySelectorAll('.timelineDetails')).toHaveLength(1);
+    expect(host.querySelector('.timelineDetails')?.textContent).toContain('75.8%');
+  });
+
   it('moves focus and selection with arrows, wraps at both ends, and supports Home/End', () => {
     const [experience, education] = tabs();
     act(() => experience.focus());

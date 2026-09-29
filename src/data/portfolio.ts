@@ -8,7 +8,7 @@ export type Project = {
   demo?: string;
   accent: 'lime' | 'cyan' | 'violet';
 };
-export type TimelineItem = { title: string; organization: string; location?: string; period: string; details: string[] };
+export type TimelineItem = { title: string; organization: string; location?: string; period: string; details: string[]; skills?: string[] };
 export type Achievement = { title: string; result: string; description: string; image: string; imageAlt: string; href: string; kind: 'certificate' | 'illustration' | 'event'; accent: 'lime' | 'cyan' | 'violet' };
 
 const github = 'https://github.com/pintu1238';
@@ -45,6 +45,7 @@ export const portfolioContent = {
   experience: [
     {
       title: 'Backend Developer & AI/ML Developer', organization: 'Code Crafter', period: 'July 2026 – Present',
+      skills: ['Java', 'Spring Boot', 'Spring Data JPA', 'Hibernate', 'REST APIs', 'SQL', 'Python', 'FastAPI', 'Machine Learning', 'Large Language Models (LLM)', 'Generative AI', 'Retrieval-Augmented Generation (RAG)', 'LangChain', 'Vector Databases', 'Prompt Engineering'],
       details: [
         'Develop backend services and REST APIs with Java and Spring Boot, connecting application workflows with reliable business logic.',
         'Implement SQL persistence using Spring Data JPA and Hibernate, with validation, exception handling and maintainable service layers.',
@@ -55,6 +56,7 @@ export const portfolioContent = {
     },
     {
       title: 'AI/ML Engineer Intern', organization: 'iplairani.com', location: 'Delhi, India · On-site', period: 'January 2026 – June 2026',
+      skills: ['Large Language Models (LLM)', 'Generative AI', 'Retrieval-Augmented Generation (RAG)', 'Agentic AI', 'Ollama', 'LangChain', 'Vector Databases', 'Prompt Engineering', 'Python', 'FastAPI', 'MLOps', 'Fine Tuning', 'Natural Language Processing (NLP)', 'Embeddings', 'Semantic Search'],
       details: [
         'Developed Generative AI and NLP applications with Python, Large Language Models (LLMs) and LangChain to support intelligent workflows.',
         'Built Retrieval-Augmented Generation (RAG) pipelines using document preprocessing, chunking, embeddings and vector databases for contextual answers from PDFs and custom datasets.',
@@ -66,6 +68,7 @@ export const portfolioContent = {
     },
     {
       title: 'Backend Developer Intern', organization: 'Globiz Technology', location: 'Ludhiana, Punjab, India · On-site', period: 'June 2025 – December 2025',
+      skills: ['Java', 'Spring Boot', 'Spring MVC', 'Spring Data JPA', 'Hibernate', 'Spring Security', 'REST APIs', 'SQL', 'PostgreSQL', 'JWT Authentication', 'Maven', 'JUnit', 'Mockito', 'Postman', 'Git'],
       details: [
         'Developed Java backend services with Spring Boot, organizing application logic into controller, service and repository layers.',
         'Built REST APIs for application workflows with request validation, consistent responses and centralized exception handling.',
@@ -76,6 +79,7 @@ export const portfolioContent = {
     },
     {
       title: 'Software Developer Intern', organization: 'ITJOBXS', location: 'Mumbai, Maharashtra, India · Remote', period: 'May 2025 – June 2025',
+      skills: ['MongoDB', 'Express.js', 'React', 'Node.js', 'JavaScript', 'TypeScript', 'HTML5', 'CSS3', 'REST APIs', 'JWT Authentication', 'Responsive Web Design', 'SQL', 'Git', 'Postman', 'Unit Testing'],
       details: [
         'Developed a responsive web section for itjobxs.com, adapting layouts and interactions across desktop and mobile screens.',
         'Worked on user verification and authentication flows, including form validation and integration with backend services.',
@@ -85,6 +89,7 @@ export const portfolioContent = {
     },
     {
       title: 'Machine Learning Intern', organization: 'Wayspire', location: 'Gurugram, Haryana, India · On-site', period: 'June 2024 – August 2024',
+      skills: ['Python', 'Machine Learning', 'NumPy', 'Pandas', 'Scikit-learn', 'Data Cleaning', 'Data Preprocessing', 'Exploratory Data Analysis', 'Feature Engineering', 'Supervised Learning', 'Model Training', 'Model Evaluation', 'Matplotlib', 'Seaborn', 'Jupyter Notebook'],
       details: [
         'Used Python for data cleaning, preprocessing and exploratory analysis to prepare structured datasets for machine learning.',
         'Worked on data ingestion workflows that transformed raw application usage data into analytical datasets for reporting.',
@@ -95,6 +100,7 @@ export const portfolioContent = {
   ] satisfies TimelineItem[],
   education: [
     { title: 'B.Tech — Computer Science & Engineering', organization: 'GNA University', location: 'Phagwara, Punjab', period: '2022 – Present', details: ['CGPA: 8.14.', 'Focused on artificial intelligence, machine learning, software development and data engineering.'] },
+    { title: 'Advance One Year Diploma in Computer Application', organization: 'Progressive Institute of Management & Technology', location: 'Ludhiana, Punjab', period: '1 July 2021 – 30 July 2022', details: ['Successfully completed the Advance One Year Diploma in Computer Application.', 'Grade: A.'] },
     { title: 'Higher Secondary', organization: 'GSSS MultiPurpose', location: 'Ludhiana, Punjab', period: '2022', details: ['Higher Secondary score: 75.8%.'] },
   ] satisfies TimelineItem[],
   projects: [

@@ -125,6 +125,15 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', 'DM Sans', sans-serif; }
 .timelineButton > svg.rotate { transform: rotate(180deg); }
 .timelineDetails { padding: 0 32px 28px; color: var(--muted); line-height: 1.7; }
 .timelineDetails ul { margin: 0; padding-left: 18px; }.timelineDetails li + li { margin-top: 10px; }
+.timelineSkills { margin: 0 32px; padding: 12px 0 20px; border-top: 1px solid var(--border); }
+.timelineSkillsButton { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 44px; padding: 4px 0; border: 0; border-radius: 4px; background: none; color: var(--cyan); text-align: left; font-size: 14px; line-height: 1.6; }
+.timelineSkillsButton > span { min-width: 0; flex: 1; overflow-wrap: anywhere; }
+.timelineSkillsButton > svg { flex-shrink: 0; }
+.timelineSkillsButton > svg:last-child { transition: transform 250ms; }
+.timelineSkillsButton > svg.rotate { transform: rotate(180deg); }
+.timelineSkillsButton:hover > span { text-decoration: underline; text-underline-offset: 4px; }
+.timelineSkillList { margin: 12px 0 0; padding: 0; list-style: none; }
+.timelineSkillList:not([hidden]) { display: flex; flex-wrap: wrap; gap: 8px; }
 .projectsSection .sectionHeading { margin-bottom: 48px; }
 .projectCarousel { position: relative; --cards-visible: 3; }
 .projectViewport { overflow: hidden; margin: 0 -16px; padding: 40px 0; touch-action: pan-y; }
@@ -292,6 +301,8 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', 'DM Sans', sans-serif; }
   .timelineButton strong { font-size: 20px; line-height: 28px; }
   .timelineButton small { font-size: 13px; gap: 8px; }
   .timelineDetails { padding: 0 20px 24px; font-size: 14px; }
+  .timelineSkills { margin-inline: 20px; }
+  .timelineSkillsButton { font-size: 13px; }
   .projectCarousel { --cards-visible: 1; }
   .projectViewport { margin: 0 -12px; padding: 24px 0; }
   .projectSlide { padding: 0 12px; }
@@ -353,6 +364,7 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', 'DM Sans', sans-serif; }
   .timelineButton { padding: 20px 14px 44px; }
   .timelineButton strong { font-size: 18px; line-height: 26px; }
   .timelineDetails { padding-inline: 14px; }
+  .timelineSkills { margin-inline: 14px; }
   .aboutCopy, .infoCard, .achievementBody, .contactFormCard, .socialCard { padding: 18px; }
   .contactCard { padding: 16px; gap: 10px; }
   .contactIcon { width: 40px; height: 40px; flex-basis: 40px; }
