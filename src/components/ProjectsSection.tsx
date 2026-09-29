@@ -17,7 +17,10 @@ const readColumns = () => window.matchMedia('(min-width: 1200px)').matches ? 3 :
 export default function ProjectsSection() {
   const [position, setPosition] = useState(3);
   const [animate, setAnimate] = useState(true);
-  const [paused, setPaused] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [focusWithin, setFocusWithin] = useState(false);
+  const [touching, setTouching] = useState(false);
+  const paused = hovered || focusWithin || touching;
   const columns = useSyncExternalStore(subscribeResize, readColumns, () => 3);
   const touchStart = useRef<number | null>(null);
   const moving = useRef(false);
@@ -66,13 +69,14 @@ export default function ProjectsSection() {
     <section className="section projectsSection" id="projects" aria-label="Featured projects">
       <SectionHeading eyebrow="My work" title="Featured Projects" description="A collection of my work in AI, Data Science, and Full Stack Development." />
       <div className="projectCarousel" role="region" aria-roledescription="carousel" aria-label="Project showcase"
-        onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}
-        onFocusCapture={() => setPaused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false); }}
+        onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+        onFocusCapture={() => setFocusWithin(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFocusWithin(false); }}
         onKeyDown={(event) => { if (event.key === 'ArrowRight') { event.preventDefault(); move(1); } if (event.key === 'ArrowLeft') { event.preventDefault(); move(-1); } }}>
         <button className="carouselArrow carouselPrevious" onClick={() => move(-1)} aria-label="Previous projects"><ChevronLeft /></button>
         <div className="projectViewport"
-          onTouchStart={(event) => { touchStart.current = event.touches[0].clientX; setPaused(true); }}
-          onTouchEnd={(event) => { if (touchStart.current !== null) { const distance = touchStart.current - event.changedTouches[0].clientX; if (Math.abs(distance) > 45) move(distance > 0 ? 1 : -1); } touchStart.current = null; setPaused(false); }}>
+          onTouchStart={(event) => { touchStart.current = event.touches[0].clientX; setTouching(true); }}
+          onTouchCancel={() => { touchStart.current = null; setTouching(false); }}
+          onTouchEnd={(event) => { if (touchStart.current !== null) { const distance = touchStart.current - event.changedTouches[0].clientX; if (Math.abs(distance) > 45) move(distance > 0 ? 1 : -1); } touchStart.current = null; setTouching(false); }}>
           <div className="projectTrack" style={{ transform: `translateX(calc(${-position} * 100% / var(--cards-visible)))`, transition: animate ? undefined : 'none' }}
             onTransitionEnd={(event) => { if (event.target === event.currentTarget) settle(); }}>
             {paddedProjects.map((project, index) => (

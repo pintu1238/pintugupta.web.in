@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 
 export type Theme = 'dark' | 'light';
 
@@ -10,6 +10,9 @@ type ThemeContextValue = {
 };
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
+const subscribeToHydration = () => () => {};
+const clientSnapshot = () => true;
+const serverSnapshot = () => false;
 
 export function getInitialTheme(storedTheme: string | null, systemTheme: Theme = 'dark'): Theme {
   if (storedTheme === 'light' || storedTheme === 'dark') return storedTheme;
@@ -17,16 +20,29 @@ export function getInitialTheme(storedTheme: string | null, systemTheme: Theme =
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(() => {
+  // React uses the server snapshot for SSR and the first hydration render.
+  const hydrated = useSyncExternalStore(subscribeToHydration, clientSnapshot, serverSnapshot);
+  const [preferredTheme, setTheme] = useState<Theme>(() => {
     if (typeof window === 'undefined') return 'dark';
-    const systemTheme: Theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-    return getInitialTheme(window.localStorage.getItem('portfolio-theme'), systemTheme);
+    const systemTheme: Theme = window.matchMedia?.('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    try {
+      return getInitialTheme(window.localStorage.getItem('portfolio-theme'), systemTheme);
+    } catch {
+      return systemTheme;
+    }
   });
+  const theme = hydrated ? preferredTheme : 'dark';
 
   useEffect(() => {
+    // Do not overwrite a saved preference with the temporary SSR default.
+    if (!hydrated) return;
     document.documentElement.dataset.theme = theme;
-    window.localStorage.setItem('portfolio-theme', theme);
-  }, [theme]);
+    try {
+      window.localStorage.setItem('portfolio-theme', theme);
+    } catch {
+      // In privacy modes the in-memory toggle remains usable without storage.
+    }
+  }, [hydrated, theme]);
 
   const value = useMemo(
     () => ({

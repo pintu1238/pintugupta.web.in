@@ -176,15 +176,13 @@ export const portfolioContent = {
       description: 'A collaborative learning management project built with Abhi, with separate learner, administration and backend repositories. A web application for bringing an online learning experience into one platform.',
       achievement: 'Worked on a collaborative application with separate frontend, admin and backend codebases.',
       stack: ['JavaScript', 'Web Development', 'REST APIs', 'Team Project'],
-      github: github + '/LMS-Learning-Management-System-', demo: 'https://lms-learning-management-system-rho.vercel.app', accent: 'violet',
+      github: github + '/LMS-Learning-Management-System-', accent: 'violet',
     },
   ] satisfies Project[],
   achievements: [
     {title: 'AWS Academy Machine Learning Foundations', result: 'Certificate of Completion', description: 'Completed the 20-hour AWS Academy course on February 23, 2024.', image: '/portfolio-media/certificate-1709348196874.png', imageAlt: 'AWS Academy certificate issued to Pintu Kumar for Machine Learning Foundations', href: '/portfolio-media/certificate-1709348196874.pdf', kind: 'certificate', accent: 'lime'},
     {title: 'Hackathon', result: 'Top 10', description: 'Participated in a hackathon and secured a place among the top 10.', image: '/portfolio-media/pintu-hackathon-top-10.png', imageAlt: 'Team collaborating on a laptop during a hackathon', href: '/portfolio-media/pintu-hackathon-top-10.png', kind: 'event', accent: 'cyan'},
     {title: 'GNA University DevOps Bootcamp', result: 'Certificate of Participation', description: 'Participated in the three-day DevOps bootcamp organized by the Data Pirates Club, September 18–20, 2024.', image: '/portfolio-media/certificate-1727362794680.png', imageAlt: 'GNA University certificate of participation issued to Pintu Kumar for the DevOps bootcamp', href: '/portfolio-media/certificate-1727362794680.pdf', kind: 'certificate', accent: 'violet'},
-    {title: 'On Stage', result: 'Creative Gallery', description: 'An AI-edited stage portrait for this portfolio. This illustrative scene does not document an award or presentation.', image: '/portfolio-media/pintu-achievement-04-ai.png', imageAlt: 'AI-edited illustrative stage portrait featuring Pintu Kumar', href: '/portfolio-media/pintu-achievement-04-ai.png', kind: 'illustration', accent: 'lime'},
-    {title: 'Community & Curiosity', result: 'Creative Gallery', description: 'An AI-edited auditorium group portrait celebrating collaboration, not evidence of attendance at a specific event.', image: '/portfolio-media/pintu-achievement-05-ai.png', imageAlt: 'AI-edited illustrative auditorium group portrait featuring Pintu Kumar', href: '/portfolio-media/pintu-achievement-05-ai.png', kind: 'illustration', accent: 'cyan'},
   ] satisfies Achievement[],
   techStack: ['Python', 'JavaScript', 'TypeScript', 'Next.js', 'React', 'Node.js', 'Express.js', 'Machine Learning', 'Deep Learning', 'NLP', 'Generative AI', 'LangChain', 'RAG', 'Scikit-learn', 'TensorFlow', 'PyTorch', 'FastAPI', 'SQL', 'PostgreSQL', 'Supabase', 'MongoDB', 'MLflow', 'Docker', 'CI/CD', 'PySpark', 'Databricks', 'Azure Data Factory', 'Delta Lake', 'Power BI', 'AWS', 'Git'],
 };

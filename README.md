@@ -47,7 +47,7 @@ Personal content lives in `src/data/portfolio.ts`, sourced from the supplied res
 
 The original resume is served at `/Pintu_Kumar_Resume.pdf`; the supplied portrait is `/pintu-kumar.jpg`. Resume education dates are preserved as supplied. Update them here when they change.
 
-The five-card gallery combines two original certificates, a supplied hackathon photo with the user's reported Top 10 result, and two explicitly labeled AI-edited illustrations. Certificate previews link to the original PDFs. The edited scenes are not claims of event attendance or awards; provenance and certificate dates are documented in `docs/portfolio-media-handoff-2026-09-29.md`.
+The three-card gallery combines two original certificates and a supplied hackathon photo with the user's reported Top 10 result. Certificate previews link to the original PDFs. The On Stage and Community & Curiosity illustrations are no longer displayed; original media provenance and certificate dates are documented in `docs/portfolio-media-handoff-2026-09-29.md`.
 
 On Vercel, `/api/*` is served by the API functions in `api/`. Outside Vercel, the frontend proxies `/api/*` to Express on port 4000 by default. For separate production hosting, set `API_INTERNAL_URL` to the backend URL before building, or use `NEXT_PUBLIC_API_URL` for direct browser-to-API requests. Keep the PostgreSQL connection string on the backend only.
 

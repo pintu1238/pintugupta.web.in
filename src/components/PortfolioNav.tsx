@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { BriefcaseBusiness, Download, GraduationCap, Menu, Moon, Sun, X } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
 import { portfolioContent } from '@/data/portfolio';
@@ -9,7 +9,7 @@ const links = [
   ['Experience / Education', '#experience'],
   ['Projects', '#projects'],
   ['About', '#about'],
-  ['Skills', '#achievements'],
+  ['Skills', '#skills'],
   ['Contact', '#contact'],
 ];
 
@@ -17,6 +17,19 @@ export default function PortfolioNav() {
   const { theme, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState('');
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const dismissOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      event.preventDefault();
+      setMenuOpen(false);
+      menuToggleRef.current?.focus();
+    };
+    window.addEventListener('keydown', dismissOnEscape);
+    return () => window.removeEventListener('keydown', dismissOnEscape);
+  }, [menuOpen]);
 
   useEffect(() => {
     const update = () => {
@@ -51,7 +64,7 @@ export default function PortfolioNav() {
         </div>
         <div className="navActions">
           <a className="navResume" href={portfolioContent.identity.resume} download="Pintu_Kumar_Resume.pdf">Resume <Download size={15} /></a>
-          <button className="iconButton navMenuButton" onClick={() => setMenuOpen((open) => !open)} aria-controls="mobile-navigation" aria-expanded={menuOpen} aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}>
+          <button ref={menuToggleRef} className="iconButton navMenuButton" onClick={() => setMenuOpen((open) => !open)} aria-controls="mobile-navigation" aria-expanded={menuOpen} aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}>
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>

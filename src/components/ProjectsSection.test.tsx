@@ -33,6 +33,15 @@ function resizeTo(width: number) {
 }
 
 describe('responsive project accessibility', () => {
+  it('keeps LMS source code available without offering its unavailable live demo', () => {
+    act(() => { resizeTo(320); root.render(<ProjectsSection />); });
+    act(() => host.querySelector<HTMLButtonElement>('[aria-label="Go to project 16"]')!.click());
+    const card = host.querySelector('.projectSlide:not([inert])')!;
+    expect(card.querySelector('h3')?.textContent).toBe('Learning Management System');
+    expect(card.querySelector('[aria-label="Learning Management System source code"]')?.getAttribute('href')).toBe('https://github.com/pintu1238/LMS-Learning-Management-System-');
+    expect(card.querySelector('[aria-label="Learning Management System live demo"]')).toBeNull();
+  });
+
   it('keeps only the visually displayed 1 / 2 / 3 cards interactive across resizes', () => {
     act(() => { resizeTo(320); root.render(<ProjectsSection />); });
     for (const [width, visible] of [[320, 1], [575, 1], [767, 1], [768, 2], [991, 2], [992, 2], [1024, 2], [1199, 2], [1200, 3], [1920, 3], [360, 1]]) {
